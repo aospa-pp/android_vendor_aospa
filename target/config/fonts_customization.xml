@@ -1204,4 +1204,20 @@
     <alias name="volte-semi-bold" to="volte" weight="600" />
     <alias name="volte-bold" to="volte" weight="700" />
 
+  <!-- Exotwo -->
+  <family customizationType="new-named-family" name="exotwo">
+      <font weight="400" style="normal">Exotwo.ttf</font>
+  </family>
+  <alias name="exotwo-medium" to="exotwo" weight="500" />
+  <alias name="exotwo-semi-bold" to="exotwo" weight="600" />
+  <alias name="exotwo-bold" to="exotwo" weight="700" />
+  <alias name="times" to="exotwo" />
+  <alias name="times new roman" to="exotwo" />
+  <alias name="palatino" to="exotwo" />
+  <alias name="georgia" to="exotwo" />
+  <alias name="baskerville" to="exotwo" />
+  <alias name="goudy" to="exotwo" />
+  <alias name="fantasy" to="exotwo" />
+  <alias name="ITC Stone Serif" to="exotwo" />
+
 </fonts-modification>
