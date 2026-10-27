@@ -63,3 +63,14 @@ AOSPA_VERSION += $(AOSPA_BUILD)-$(BUILD_DATE)
 
 # Remove unwanted characters for zip naming
 AOSPA_VERSION := $(shell echo -n $(AOSPA_VERSION) | tr -d '[:space:]')
+
+# Signing
+ifneq (eng,$(TARGET_BUILD_VARIANT))
+ifneq (,$(wildcard vendor/aospa/signing/keys/releasekey.pk8))
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/aospa/signing/keys/releasekey
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.oem_unlock_supported=1
+endif
+ifneq (,$(wildcard vendor/aospa/signing/keys/otakey.x509.pem))
+PRODUCT_OTA_PUBLIC_KEYS := vendor/aospa/signing/keys/otakey.x509.pem
+endif
+endif
