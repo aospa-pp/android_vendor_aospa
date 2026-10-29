@@ -12,6 +12,7 @@
   <project path="device/xiaomi/sepolicy" name="AOSPA/android_device_xiaomi_sepolicy" remote="aospa" revision="calcite" />
   <project path="device/xiaomi/sm8550-common" name="aospa-pp-devices/android_device_xiaomi_sm8550-common" remote="github-ssh" revision="calcite" />
   <project path="hardware/xiaomi" name="aospa-pp-devices/android_hardware_xiaomi" remote="github-ssh" revision="calcite" />
+  <project path="vendor/milahaina/facehal" name="IPSBHANGU/AOSP-FACEHAL" remote="github" revision="70a026654b2d739631b47579dbad12ba4f229c1e" />
   <project path="vendor/xiaomi" name="aospa-pp-devices/proprietary_vendor_xiaomi" remote="github-ssh" revision="calcite" clone-depth="1" />
   <project path="vendor/xiaomi/camera" name="aospa-pp/proprietary_vendor_xiaomi_camera" remote="gitlab" revision="calcite-sm8550-leica" clone-depth="1" />
 </manifest>
