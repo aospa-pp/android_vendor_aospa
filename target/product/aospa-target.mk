@@ -108,6 +108,22 @@ PRODUCT_PRODUCT_PROPERTIES += \
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
      vendor/aospa/target/config/aospa_vendor_framework_compatibility_matrix.xml
 
+# Lineage health (charging control).  The permission XML declares the
+# org.lineageos.health feature that HealthInterfaceService requires to
+# publish its binder service, and the compatibility matrix entry below
+# advertises the HAL requirement; both identify the build as a custom
+# ROM to app-level scanners (e.g. BShield) when the HAL is not even
+# built.  Install them only when the device has added
+# vendor.lineage.health-service.default to PRODUCT_PACKAGES, so that
+# targets without the feature ship neither.
+ifneq ($(filter vendor.lineage.health-service.default,$(PRODUCT_PACKAGES)),)
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+     vendor/aospa/target/config/lineage_health_compatibility_matrix.xml
+
+PRODUCT_COPY_FILES += \
+    vendor/aospa/target/config/permissions/org.lineageos.health.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.health.xml
+endif
+
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0 \
@@ -157,8 +173,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 # Permissions
 PRODUCT_COPY_FILES += \
     vendor/aospa/target/config/permissions/default_permissions_com.google.android.deskclock.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default_permissions_com.google.android.deskclock.xml \
-    vendor/aospa/target/config/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml \
-    vendor/aospa/target/config/permissions/org.lineageos.health.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.health.xml
+    vendor/aospa/target/config/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
 
 # Preinstalled Packages
 PRODUCT_COPY_FILES += \
