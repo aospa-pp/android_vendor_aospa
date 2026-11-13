@@ -959,9 +959,15 @@
     <font weight="400" style="italic">NotoSans-Italic.ttf</font>
     <font weight="500" style="normal">NotoSans-Medium.ttf</font>
     <font weight="500" style="italic">NotoSans-MediumItalic.ttf</font>
+    <font weight="600" style="normal">NotoSans-SemiBold.ttf</font>
+    <font weight="600" style="italic">NotoSans-SemiBoldItalic.ttf</font>
+    <font weight="700" style="normal">NotoSans-Bold.ttf</font>
+    <font weight="700" style="italic">NotoSans-BoldItalic.ttf</font>
   </family>
   <alias name="notosans-light" to="notosans" weight="300" />
   <alias name="notosans-medium" to="notosans" weight="500" />
+  <alias name="notosans-semi-bold" to="notosans" weight="600" />
+  <alias name="notosans-bold" to="notosans" weight="700" />
 
   <family customizationType="new-named-family" name="urbanist">
     <font weight="500" style="normal">Urbanist-VF.ttf
