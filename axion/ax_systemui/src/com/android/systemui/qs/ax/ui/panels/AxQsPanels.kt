@@ -19,42 +19,30 @@ package com.android.systemui.qs.ax.ui.panels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.android.compose.animation.Expandable
 import com.android.compose.animation.scene.ContentScope
 import com.android.compose.gesture.gesturesDisabled
-import com.android.systemui.animation.Expandable as SystemUiExpandable
 import com.android.systemui.common.ui.compose.Icon as SystemUiIcon
 import com.android.systemui.common.ui.compose.PagerDots
 import com.android.systemui.compose.modifiers.sysuiResTag
@@ -113,7 +101,11 @@ internal fun ContentScope.AxQsHeaderActions(
             modifier =
                 Modifier.sysuiResTag("settings_button_container").minimumInteractiveComponentSize(),
         )
-        AxFooterOverflowMenu(viewModel)
+        FooterIconButton(
+            model = viewModel.powerButtonViewModel,
+            containerColor = LocalAxQsCellConfig.current.backgroundColor(),
+            modifier = Modifier.sysuiResTag("pm_lite").minimumInteractiveComponentSize(),
+        )
     }
 }
 
@@ -184,75 +176,6 @@ private fun AxEditButton(
             }
         }
     }
-}
-
-@Composable
-private fun AxFooterOverflowMenu(viewModel: ToolbarViewModel) {
-    var expanded by remember { mutableStateOf(false) }
-    var expandable by remember { mutableStateOf<SystemUiExpandable?>(null) }
-    val context = LocalContext.current
-    val menuColor =
-        LocalAxQsCellConfig.current.backgroundColor().compositeOver(
-            MaterialTheme.colorScheme.surface
-        )
-    Box {
-        Expandable(
-            color = LocalAxQsCellConfig.current.backgroundColor(),
-            shape = CircleShape,
-            onClick = {
-                expandable = it
-                expanded = true
-            },
-            modifier = Modifier.minimumInteractiveComponentSize(),
-            useModifierBasedImplementation = true,
-        ) {
-            Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = stringResource(
-                        SysuiR.string.qs_edit_menu_content_description
-                    ),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            offset = DpOffset(0.dp, (-12).dp),
-            shape = RoundedCornerShape(24.dp),
-            containerColor = menuColor,
-            tonalElevation = 0.dp,
-            shadowElevation = 0.dp,
-        ) {
-            AxPowerMenuItem(viewModel.powerButtonViewModel) {
-                val source = expandable ?: return@AxPowerMenuItem
-                expanded = false
-                viewModel.powerButtonViewModel.onClick(source)
-            }
-        }
-    }
-}
-
-@Composable
-private fun AxPowerMenuItem(model: FooterActionsButtonViewModel, onClick: () -> Unit) {
-    DropdownMenuItem(
-        text = {
-            Text(
-                text = stringResource(SysuiR.string.accessibility_quick_settings_power_menu),
-                style = MaterialTheme.typography.labelLarge,
-            )
-        },
-        leadingIcon = {
-            SystemUiIcon(
-                icon = model.icon,
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(20.dp),
-            )
-        },
-        onClick = onClick,
-        modifier = Modifier.heightIn(min = 52.dp),
-    )
 }
 
 @Composable
