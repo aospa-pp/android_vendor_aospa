@@ -94,9 +94,9 @@ data class AxQsCellConfig(
     val iconContainerSize: Dp
         get() =
             if (rowHeight > 0.dp) {
-                (Defaults.IconContainerSize * effectiveScale).coerceAtMost(
-                    (rowHeight - 8.dp).coerceAtLeast(16.dp)
-                )
+                // Match the round buttons inside the ringer tile, which fill the tile height
+                // minus the ringer outer padding on both sides.
+                (rowHeight - AxQsTokens.Slider.RingerOuterPadding * 2).coerceAtLeast(16.dp)
             } else {
                 Defaults.IconContainerSize * effectiveScale
             }
